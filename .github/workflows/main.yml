@@ -34,11 +34,4 @@ jobs:
           sf sgd source delta --to "HEAD" --from "HEAD~1" --output changed-sources/ --generate-delta --source force-app/
           echo "[INFO] Diff generated"
 
-      - name: Authenticate to Salesforce (JWT)
-        run: |
-          echo "${{ secrets.JWT_SERVER_KEY }}" > server.key
-          sf org login jwt --username ${{ secrets.DEPLOYMENT_USERNAME }} --jwt-key-file server.key --client-id ${{ secrets.CONSUMER_KEY }} --instance-url ${{ vars.INSTANCE_URL }} --set-default
-
-      - name: Deploy to Salesforce and run all local tests
-        run: |
-          sf project deploy start --source-dir changed-sources/force-app --test-level RunLocalTests
+     
